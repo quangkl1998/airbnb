@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
 import cn from "classnames";
 import { useDispatch } from "react-redux";
@@ -10,8 +10,11 @@ import { useSelector } from "react-redux";
 import Select, { SingleValue } from "react-select";
 import { Controller, FieldErrors, useForm } from "react-hook-form";
 import { SearchValue } from "Interface/search";
+import { removeUser } from "Slices/auth";
 
 const Header = () => {
+    const { pathname } = useLocation();
+    console.log(pathname);
     const [showLogin, setShowLogin] = useState(false);
     const [showForm, setShowForm] = useState(false);
 
@@ -37,6 +40,7 @@ const Header = () => {
     const { listLocation, isLoading, error } = useSelector(
         (state: RootState) => state.location,
     );
+    const { user } = useSelector((state: RootState) => state.auth);
 
     useEffect(() => {
         dispatch(getListLocation());
@@ -90,6 +94,14 @@ const Header = () => {
         console.log(error);
     };
 
+    const handleLogOut = () => {
+        navigate(0);
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+
+        dispatch(removeUser(null));
+    };
+
     return (
         <nav className="fixed top-0 border-b w-full bg-white z-20">
             <div className="container mx-auto px-2 sm:px-10 py-5 flex flex-wrap justify-between items-center">
@@ -127,7 +139,12 @@ const Header = () => {
                     className="flex flex-wrap justify-center items-center relative z-20"
                     style={{ flex: "45%" }}
                 >
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div
+                        className={cn(
+                            "flex flex-wrap justify-center items-center",
+                            pathname === "/personal-info" ? "hidden" : "",
+                        )}
+                    >
                         <NavLink className="mx-2" to="">
                             Chỗ ở
                         </NavLink>
@@ -142,6 +159,7 @@ const Header = () => {
                         className={cn(
                             "absolute flex flex-wrap px-3 py-1.5 rounded-full shadow-lg border bg-white justify-center items-center cursor-pointer z-20",
                             showForm ? "hidden" : "",
+                            pathname === "/personal-info" ? "hidden" : "",
                         )}
                         onClick={() => {
                             setShowForm(true);
@@ -397,22 +415,32 @@ const Header = () => {
                                             </g>
                                         </svg>
                                     </div>
-                                    <div className="block h-10 w-12 flex-shrink-0 flex-grow-0 pl-5">
-                                        <svg
-                                            viewBox="0 0 32 32"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            aria-hidden="true"
-                                            role="presentation"
-                                            focusable="false"
-                                            style={{
-                                                display: "block",
-                                                height: "100%",
-                                                width: "100%",
-                                                fill: "currentcolor",
-                                            }}
-                                        >
-                                            <path d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z" />
-                                        </svg>
+                                    <div className="block h-10 w-12 pl-4">
+                                        {user ? (
+                                            <div className="w-full h-full flex justify-center items-center">
+                                                <img
+                                                    src={user?.avatar}
+                                                    alt=""
+                                                    className="w-7 h-7 rounded-full"
+                                                />
+                                            </div>
+                                        ) : (
+                                            <svg
+                                                viewBox="0 0 32 32"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                aria-hidden="true"
+                                                role="presentation"
+                                                focusable="false"
+                                                style={{
+                                                    display: "block",
+                                                    height: "100%",
+                                                    width: "100%",
+                                                    fill: "currentcolor",
+                                                }}
+                                            >
+                                                <path d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z" />
+                                            </svg>
+                                        )}
                                     </div>
                                 </button>
                                 <div
@@ -423,20 +451,44 @@ const Header = () => {
                                     }
                                 >
                                     {/* / */}
-                                    <div className="font-medium flex flex-col border-b-2">
-                                        <NavLink
-                                            className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
-                                            to="/register"
-                                        >
-                                            Đăng ký
-                                        </NavLink>
-                                        <NavLink
-                                            className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
-                                            to="/login"
-                                        >
-                                            Đăng nhập
-                                        </NavLink>
-                                    </div>
+                                    {localStorage.getItem("user") ? (
+                                        <div className="flex flex-col border-b-2 font-semibold">
+                                            <NavLink
+                                                className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
+                                                to=""
+                                            >
+                                                Tin nhắn
+                                            </NavLink>
+                                            <NavLink
+                                                className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
+                                                to=""
+                                            >
+                                                Thông báo
+                                            </NavLink>
+                                            <NavLink
+                                                className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
+                                                to="/personal-info"
+                                            >
+                                                Thông tin cá nhân
+                                            </NavLink>
+                                        </div>
+                                    ) : (
+                                        <div className="font-medium flex flex-col border-b-2">
+                                            <NavLink
+                                                className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
+                                                to="/register"
+                                            >
+                                                Đăng ký
+                                            </NavLink>
+                                            <NavLink
+                                                className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
+                                                to="/login"
+                                            >
+                                                Đăng nhập
+                                            </NavLink>
+                                        </div>
+                                    )}
+
                                     <div className="font-normal flex flex-col">
                                         <NavLink
                                             className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
@@ -457,6 +509,19 @@ const Header = () => {
                                             Trợ giúp
                                         </NavLink>
                                     </div>
+
+                                    {localStorage.getItem("user") ? (
+                                        <div className="font-medium flex flex-col border-t-2">
+                                            <div
+                                                className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200 cursor-pointer"
+                                                onClick={handleLogOut}
+                                            >
+                                                Đăng xuất
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        ""
+                                    )}
                                 </div>
                             </div>
                         </div>

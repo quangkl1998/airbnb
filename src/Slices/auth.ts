@@ -3,25 +3,24 @@ import { LoginResult, LoginValues, UserValues } from "Interface/auth";
 import authAPI from "Services/authAPI";
 
 interface State {
-    loginresult: LoginResult[];
     user: UserValues | null;
-    isloading: boolean;
+    isLoading: boolean;
     error?: string;
 }
 const initialState: State = {
-    loginresult: [],
     user: null || JSON.parse(localStorage.getItem("user") as string),
-    isloading: false,
+    isLoading: false,
     error: undefined,
 };
 export const login = createAsyncThunk(
     "auth/login",
     async (values: LoginValues) => {
         try {
-            const data = await authAPI.login(values);
-
-            return data;
+            const loginResult = await authAPI.login(values);
+            if (loginResult.user) return loginResult;
+            else return null;
         } catch (error) {
+            console.log(123);
             throw error;
         }
     },
@@ -36,14 +35,14 @@ const authSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(login.pending, (state) => {
-            state.isloading = true;
+            state.isLoading = true;
         });
         builder.addCase(login.fulfilled, (state, { payload }) => {
-            state.isloading = false;
-            state.user = payload?.user;
+            state.isLoading = false;
+            if (payload) state.user = payload.user;
         });
         builder.addCase(login.rejected, (state, { error }) => {
-            state.isloading = false;
+            state.isLoading = false;
             state.error = error.message;
         });
     },

@@ -30,13 +30,13 @@ const Login = () => {
         await dispatch(login(values))
             .unwrap()
             .then((result) => {
-                if (result.user) {
+                if (result) {
                     localStorage.setItem("user", JSON.stringify(result?.user));
                     localStorage.setItem("token", result?.token);
                     navigate(-1);
                 } else {
                     Swal.fire({
-                        title: `Đăng nhập thất bại`,
+                        title: "Đăng nhập thất bại",
                     });
                 }
             });

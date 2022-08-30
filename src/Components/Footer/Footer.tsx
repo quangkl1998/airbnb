@@ -1,9 +1,10 @@
+import cn from "classnames";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <div className="border-t mt-5 pt-5 bg-gray-100">
+        <div className={cn("border-t mt-5 pt-5 bg-gray-100")}>
             <div className="container grid grid-cols-2 mx-auto gap-x-3 gap-y-8 sm:grid-cols-3 md:grid-cols-4 px-10 pb-10 mb-5">
                 <div className="flex flex-col space-y-4">
                     <h2 className="font-semibold">Hỗ trợ</h2>

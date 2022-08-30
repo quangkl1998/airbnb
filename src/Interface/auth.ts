@@ -20,4 +20,5 @@ export interface UserValues {
     address: string;
     type: string;
     __v: number;
+    avatar: string;
 }
