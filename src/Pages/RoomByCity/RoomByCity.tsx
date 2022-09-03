@@ -1,11 +1,13 @@
+import { TabTitle } from "Utill/GenaralFunction";
 import HotelList from "../../Components/HotelList/HotelList";
 import Map from "../../Components/Map/Map";
 
 const RoomByCity = () => {
+    TabTitle("Airbnb - Phòng theo vị trí");
     return (
         <div className="container mx-auto">
             <div className="h-28"></div>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <HotelList />
                 <Map />
             </div>

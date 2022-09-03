@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
 import cn from "classnames";
 import { useDispatch } from "react-redux";
@@ -7,14 +7,17 @@ import { AppDispatch, RootState } from "configStore";
 import { getListLocation } from "Slices/location";
 import { useSelector } from "react-redux";
 
-import Select, { SingleValue } from "react-select";
+import Select from "react-select";
 import { Controller, FieldErrors, useForm } from "react-hook-form";
 import { SearchValue } from "Interface/search";
 import { removeUser } from "Slices/auth";
 
 const Header = () => {
     const { pathname } = useLocation();
-    console.log(pathname);
+    // const { id } = useParams();
+    // console.log(pathname);
+    // const pathPage = pathname.split("/");
+    // console.log(id);
     const [showLogin, setShowLogin] = useState(false);
     const [showForm, setShowForm] = useState(false);
 
@@ -95,11 +98,12 @@ const Header = () => {
     };
 
     const handleLogOut = () => {
-        navigate(0);
         localStorage.removeItem("user");
         localStorage.removeItem("token");
+        setShowLogin(false);
 
         dispatch(removeUser(null));
+        navigate("/");
     };
 
     return (
@@ -142,7 +146,9 @@ const Header = () => {
                     <div
                         className={cn(
                             "flex flex-wrap justify-center items-center",
-                            pathname === "/personal-info" ? "hidden" : "",
+                            pathname.startsWith("/personal-info")
+                                ? "hidden"
+                                : "",
                         )}
                     >
                         <NavLink className="mx-2" to="">
@@ -159,7 +165,9 @@ const Header = () => {
                         className={cn(
                             "absolute flex flex-wrap px-3 py-1.5 rounded-full shadow-lg border bg-white justify-center items-center cursor-pointer z-20",
                             showForm ? "hidden" : "",
-                            pathname === "/personal-info" ? "hidden" : "",
+                            pathname.startsWith("/personal-info")
+                                ? "hidden"
+                                : "",
                         )}
                         onClick={() => {
                             setShowForm(true);
@@ -461,13 +469,19 @@ const Header = () => {
                                             </NavLink>
                                             <NavLink
                                                 className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
-                                                to=""
+                                                to={`/tickets-by-user/${user?._id}`}
+                                                onClick={() =>
+                                                    setShowLogin(false)
+                                                }
                                             >
-                                                Thông báo
+                                                Chuyến đi
                                             </NavLink>
                                             <NavLink
                                                 className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
-                                                to="/personal-info"
+                                                to={`/personal-info/${user?._id}`}
+                                                onClick={() =>
+                                                    setShowLogin(false)
+                                                }
                                             >
                                                 Thông tin cá nhân
                                             </NavLink>
@@ -477,12 +491,18 @@ const Header = () => {
                                             <NavLink
                                                 className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
                                                 to="/register"
+                                                onClick={() =>
+                                                    setShowLogin(false)
+                                                }
                                             >
                                                 Đăng ký
                                             </NavLink>
                                             <NavLink
                                                 className="hover:bg-gray-100 pl-5 py-2 transition-all duration-200"
                                                 to="/login"
+                                                onClick={() =>
+                                                    setShowLogin(false)
+                                                }
                                             >
                                                 Đăng nhập
                                             </NavLink>

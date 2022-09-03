@@ -18,7 +18,7 @@ const Filter = (props: Props) => {
             <div className="h-28"></div>
             <div className="container mx-auto sticky top-32">
                 <Swiper
-                    slidesPerView={8}
+                    slidesPerView={5}
                     spaceBetween={10}
                     slidesPerGroup={1}
                     loop={false}

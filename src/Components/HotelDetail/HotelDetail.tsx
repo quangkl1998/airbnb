@@ -6,16 +6,12 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getRoomDetail } from "Slices/room";
 
-import { useForm } from "react-hook-form";
-
 import FormGetBooking from "Components/FormGetBooking/FormGetBooking";
 
 const HotelDetail = () => {
     const { id } = useParams();
 
-    const { roomDetail, isLoading, error } = useSelector(
-        (state: RootState) => state.room,
-    );
+    const { roomDetail } = useSelector((state: RootState) => state.room);
 
     const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
@@ -24,20 +20,6 @@ const HotelDetail = () => {
 
     const createRandomNumber = (min: number, max: number) => {
         return Math.floor(Math.random() * (max - min)) + min;
-    };
-
-    const {
-        register,
-        handleSubmit,
-        control,
-        formState: { errors },
-    } = useForm<any>({
-        // Khai báo giá trị mặc định cho các input trong form
-        // mode: cách validation được trigger (default là submit)
-        mode: "onTouched",
-    });
-    const onSubmit = (values: any) => {
-        console.log(values);
     };
 
     return (
@@ -696,12 +678,7 @@ const HotelDetail = () => {
                     </div>
                     <div className="w-full sm:w-1/2 lg:w-2/5">
                         <div className="sticky top-28">
-                            <form
-                                onSubmit={handleSubmit(onSubmit)}
-                                className="bg-white shadow-xl border rounded-xl p-6 w-full lg:w-5/6 mx-auto"
-                            >
-                                <FormGetBooking />
-                            </form>
+                            <FormGetBooking />
                         </div>
                     </div>
                 </div>

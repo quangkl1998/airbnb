@@ -1,6 +1,5 @@
 import cn from "classnames";
-import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -168,7 +167,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-gray-50 border-t fixed bottom-0 w-screen z-10  py-3">
+            <div className="bg-gray-50 border-t fixed bottom-0 w-screen z-10  py-3 hidden md:block">
                 <div className="container mx-auto px-10 flex justify-between items-center text-gray-500 ">
                     <div>
                         <span>© 2022 Airbnb, Inc.</span>

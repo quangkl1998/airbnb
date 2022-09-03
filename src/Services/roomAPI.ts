@@ -1,4 +1,4 @@
-import { Room } from "Interface/room";
+import { Booking, Room } from "Interface/room";
 import axiosClient from "./axiosClient";
 
 const roomAPI = {
@@ -18,6 +18,9 @@ const roomAPI = {
     },
     getRoomDetail: (roomId: string) => {
         return axiosClient.get<Room>(`api/rooms/${roomId}`);
+    },
+    booking: (values: Booking) => {
+        return axiosClient.post<any>("api/rooms/booking", values);
     },
 };
 export default roomAPI;

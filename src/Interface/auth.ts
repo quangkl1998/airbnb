@@ -22,3 +22,26 @@ export interface UserValues {
     __v: number;
     avatar: string;
 }
+
+export interface UserUpdateValues {
+    name: string;
+    email: string;
+    phone: string;
+    birthday: Date;
+    gender: boolean;
+    address: string;
+}
+
+export interface UpdateUser {
+    id: string;
+    values: UserUpdateValues;
+}
+export interface RegisterValues {
+    name: string;
+    email: string;
+    phone: string;
+    password: string;
+    address: string;
+    birthday: Date;
+    gender: boolean;
+}

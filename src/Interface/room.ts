@@ -28,3 +28,8 @@ export interface LocationID {
     valueate: number;
     image: string;
 }
+export interface Booking {
+    roomId: string;
+    checkIn: Date;
+    checkOut: Date;
+}

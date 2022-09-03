@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Room } from "Interface/room";
+import { Booking, Room } from "Interface/room";
 import roomAPI from "Services/roomAPI";
 
 interface State {
@@ -42,6 +42,19 @@ export const getRoomDetail = createAsyncThunk(
         try {
             const room = await roomAPI.getRoomDetail(roomId);
             return room;
+        } catch (error) {
+            throw error;
+        }
+    },
+);
+
+export const booking = createAsyncThunk(
+    "room/booking",
+    async (values: Booking) => {
+        try {
+            const result = await roomAPI.booking(values);
+            console.log(result);
+            return result;
         } catch (error) {
             throw error;
         }

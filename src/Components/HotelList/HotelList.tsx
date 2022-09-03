@@ -13,11 +13,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// import "./RoomList.css";
-
 // import required modules
 import { Pagination, Navigation } from "swiper";
 import { NavLink } from "react-router-dom";
+
+import ReactLoading from "react-loading";
 
 const HotelList = () => {
     // const location = useLocation();
@@ -43,7 +43,7 @@ const HotelList = () => {
 
     return (
         <div>
-            <div className="flex flex-wrap justify-between items-center py-5">
+            <div className="flex flex-wrap justify-between items-center py-5 ml-4">
                 <span className="font-semibold">Hơn 1.000 chổ ở</span>
                 <button
                     type="button"
@@ -67,82 +67,90 @@ const HotelList = () => {
                     <span>Bộ lọc</span>
                 </button>
             </div>
-            <div className="grid grid-cols-2 gap-6 ">
-                {listRoom.map((room) => {
-                    return (
-                        <NavLink
-                            key={room._id}
-                            className="roomLink"
-                            to={`/roomdetail/${room._id}`}
-                        >
-                            <Swiper
-                                pagination={{
-                                    dynamicBullets: true,
-                                }}
-                                loop={true}
-                                navigation={true}
-                                modules={[Pagination, Navigation]}
-                                className="roomSwiper relative"
+            {isLoading ? (
+                <ReactLoading
+                    className="mx-auto"
+                    type="bubbles"
+                    color="#F43F5E"
+                />
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 ml-4">
+                    {listRoom.map((room) => {
+                        return (
+                            <NavLink
+                                key={room._id}
+                                className="roomLink"
+                                to={`/roomdetail/${room._id}`}
                             >
-                                <SwiperSlide className="w-full">
-                                    <img src={room.image} />
-                                </SwiperSlide>
-                                <SwiperSlide className="w-full">
-                                    <img src={room.image} alt="" />
-                                </SwiperSlide>
-                                <SwiperSlide className="w-full">
-                                    <img src={room.image} alt="" />
-                                </SwiperSlide>
-                                <button className="absolute top-3 right-3 z-30">
-                                    <svg
-                                        viewBox="0 0 32 32"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        aria-hidden="true"
-                                        role="presentation"
-                                        focusable="false"
-                                        style={{
-                                            display: "block",
-                                            fill: "rgba(0, 0, 0, 0.5)",
-                                            height: "24px",
-                                            width: "24px",
-                                            stroke: "#fff",
-                                            strokeWidth: 2,
-                                            overflow: "hidden",
-                                        }}
-                                    >
-                                        <path d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"></path>
-                                    </svg>
-                                </button>
-                            </Swiper>
-                            <div className="overflow-hidden">
-                                <p className="flex justify-between mt-2">
-                                    <span className="font-bold  text-ellipsis overflow-hidden whitespace-nowrap">
-                                        {room.name}
-                                    </span>
-                                    <span>
-                                        <i className="fa fa-star"></i>{" "}
-                                        {createRandomStar(1, 5)}
-                                    </span>
-                                </p>
-                                <p className="text-gray-500 text-ellipsis overflow-hidden whitespace-nowrap">
-                                    {room.description}
-                                </p>
-                                <p className="text-gray-500">
-                                    Ngày {createRandomNumber(1, 31)} - Ngày{" "}
-                                    {createRandomNumber(1, 31)} tháng{" "}
-                                    {createRandomNumber(1, 12)}
-                                </p>
-                                <p className="mt-1">
-                                    <span className="font-bold">
-                                        {room.price} VNĐ
-                                    </span>{" "}
-                                    đêm
-                                </p>
-                            </div>
-                        </NavLink>
-                    );
-                })}
-            </div>
+                                <Swiper
+                                    pagination={{
+                                        dynamicBullets: true,
+                                    }}
+                                    loop={true}
+                                    navigation={true}
+                                    modules={[Pagination, Navigation]}
+                                    className="roomSwiper relative"
+                                >
+                                    <SwiperSlide className="w-full">
+                                        <img src={room.image} />
+                                    </SwiperSlide>
+                                    <SwiperSlide className="w-full">
+                                        <img src={room.image} alt="" />
+                                    </SwiperSlide>
+                                    <SwiperSlide className="w-full">
+                                        <img src={room.image} alt="" />
+                                    </SwiperSlide>
+                                    <button className="absolute top-3 right-3 z-30">
+                                        <svg
+                                            viewBox="0 0 32 32"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            aria-hidden="true"
+                                            role="presentation"
+                                            focusable="false"
+                                            style={{
+                                                display: "block",
+                                                fill: "rgba(0, 0, 0, 0.5)",
+                                                height: "24px",
+                                                width: "24px",
+                                                stroke: "#fff",
+                                                strokeWidth: 2,
+                                                overflow: "hidden",
+                                            }}
+                                        >
+                                            <path d="m16 28c7-4.733 14-10 14-17 0-1.792-.683-3.583-2.05-4.95-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05l-2.051 2.051-2.05-2.051c-1.367-1.366-3.158-2.05-4.95-2.05-1.791 0-3.583.684-4.949 2.05-1.367 1.367-2.051 3.158-2.051 4.95 0 7 7 12.267 14 17z"></path>
+                                        </svg>
+                                    </button>
+                                </Swiper>
+                                <div className="overflow-hidden">
+                                    <p className="flex justify-between mt-2">
+                                        <span className="font-bold  text-ellipsis overflow-hidden whitespace-nowrap">
+                                            {room.name}
+                                        </span>
+                                        <span>
+                                            <i className="fa fa-star"></i>{" "}
+                                            {createRandomStar(1, 5)}
+                                        </span>
+                                    </p>
+                                    <p className="text-gray-500 text-ellipsis overflow-hidden whitespace-nowrap">
+                                        {room.description}
+                                    </p>
+                                    <p className="text-gray-500">
+                                        Ngày {createRandomNumber(1, 31)} - Ngày{" "}
+                                        {createRandomNumber(1, 31)} tháng{" "}
+                                        {createRandomNumber(1, 12)}
+                                    </p>
+                                    <p className="mt-1">
+                                        <span className="font-bold">
+                                            {room.price} VNĐ
+                                        </span>{" "}
+                                        đêm
+                                    </p>
+                                </div>
+                            </NavLink>
+                        );
+                    })}
+                </div>
+            )}
         </div>
     );
 };
