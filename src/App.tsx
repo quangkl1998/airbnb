@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 // import Home from "./Pages/Home/Home";
 // import RoomDetail from "./Pages/RoomDetail/RoomDetail";
@@ -11,6 +11,7 @@ import "./App.css";
 import Loading from "Components/Loading/Loading";
 import { lazy, Suspense } from "react";
 import ProtectedRoute from "Routes/ProtectedRoute";
+import ErrorBoundary from "Components/ErrorBoundary/ErrorBoundary";
 
 const HomeTemplate = lazy(() => import("Templates/HomeTemplate/HomeTemplate"));
 const Home = lazy(() => import("Pages/Home/Home"));
@@ -23,41 +24,44 @@ const Register = lazy(() => import("Pages/Register/Register"));
 
 function App() {
     return (
-        <Suspense fallback={<Loading />}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="" element={<HomeTemplate />}>
-                        <Route path="" element={<Home />} />
-                        <Route
-                            path="/roomdetail/:id"
-                            element={<RoomDetail />}
-                        />
-                        <Route
-                            path="/roombycity/:id"
-                            element={<RoomByCity />}
-                        />
-                        <Route
-                            path="/personal-info/:id"
-                            element={
-                                <ProtectedRoute>
-                                    <Info />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/tickets-by-user/:id"
-                            element={
-                                <ProtectedRoute>
-                                    <InfoTickets />
-                                </ProtectedRoute>
-                            }
-                        />
-                    </Route>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                </Routes>
-            </BrowserRouter>
-        </Suspense>
+        <ErrorBoundary>
+            <Suspense fallback={<Loading />}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="" element={<HomeTemplate />}>
+                            <Route path="" element={<Home />} />
+                            <Route
+                                path="/roomdetail/:id"
+                                element={<RoomDetail />}
+                            />
+                            <Route
+                                path="/roombycity/:id"
+                                element={<RoomByCity />}
+                            />
+                            <Route
+                                path="/personal-info/:id"
+                                element={
+                                    <ProtectedRoute>
+                                        <Info />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/tickets-by-user/:id"
+                                element={
+                                    <ProtectedRoute>
+                                        <InfoTickets />
+                                    </ProtectedRoute>
+                                }
+                            />
+                        </Route>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="*" element={<Navigate to={""} />} />
+                    </Routes>
+                </BrowserRouter>
+            </Suspense>
+        </ErrorBoundary>
     );
 }
 
