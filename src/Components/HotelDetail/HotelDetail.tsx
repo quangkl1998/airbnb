@@ -1,22 +1,11 @@
 import Review from "Components/Review/Review";
-import { AppDispatch, RootState } from "configStore";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { RootState } from "configStore";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getRoomDetail } from "Slices/room";
 
 import FormGetBooking from "Components/FormGetBooking/FormGetBooking";
 
 const HotelDetail = () => {
-    const { id } = useParams();
-
     const { roomDetail } = useSelector((state: RootState) => state.room);
-
-    const dispatch = useDispatch<AppDispatch>();
-    useEffect(() => {
-        dispatch(getRoomDetail(id!));
-    }, []);
 
     const createRandomNumber = (min: number, max: number) => {
         return Math.floor(Math.random() * (max - min)) + min;

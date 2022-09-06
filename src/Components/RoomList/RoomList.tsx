@@ -1,8 +1,5 @@
-import { AppDispatch, RootState } from "configStore";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { RootState } from "configStore";
 import { useSelector } from "react-redux";
-import { getListRoom } from "Slices/room";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,11 +21,6 @@ const RoomList = () => {
     const { listRoom, isLoading } = useSelector(
         (state: RootState) => state.room,
     );
-
-    const dispatch = useDispatch<AppDispatch>();
-    useEffect(() => {
-        dispatch(getListRoom());
-    }, []);
 
     const createRandomNumber = (min: number, max: number) => {
         return Math.floor(Math.random() * (max - min)) + min;

@@ -8,9 +8,9 @@ import { getListTicketByUser } from "Slices/ticket";
 import { TabTitle } from "Utill/GenaralFunction";
 
 const InfoTickets = () => {
-    TabTitle("Thông tin đặt vé");
-
     const { user } = useSelector((state: RootState) => state.auth);
+    TabTitle(`Thông tin đặt vé - ${user?.name}`);
+
     const { listTicket } = useSelector((state: RootState) => state.ticket);
 
     const dispatch = useDispatch<AppDispatch>();

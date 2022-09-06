@@ -16,10 +16,9 @@ import Swal from "sweetalert2";
 import { TabTitle } from "Utill/GenaralFunction";
 
 const Info = () => {
-    TabTitle("Thông tin cá nhân");
-    const { id } = useParams();
-
     const { user } = useSelector((state: RootState) => state.auth);
+    TabTitle(`Thông tin cá nhân - ${user?.name}`);
+    const { id } = useParams();
 
     const [showInputName, setShowInputName] = useState<boolean>(false);
     const [showInputGender, setShowInputGender] = useState<boolean>(false);

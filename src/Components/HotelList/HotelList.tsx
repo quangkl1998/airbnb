@@ -21,18 +21,12 @@ import ReactLoading from "react-loading";
 
 const HotelList = () => {
     // const location = useLocation();
-    const { id } = useParams();
 
     const { listRoom, isLoading, error } = useSelector(
         (state: RootState) => state.room,
     );
 
     // console.log(listRoom);
-
-    const dispatch = useDispatch<AppDispatch>();
-    useEffect(() => {
-        dispatch(getListRoomByLocation(id!));
-    }, [id]);
 
     const createRandomNumber = (min: number, max: number) => {
         return Math.floor(Math.random() * (max - min)) + min;
