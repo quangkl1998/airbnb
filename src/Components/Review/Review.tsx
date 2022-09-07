@@ -64,7 +64,7 @@ const Review = () => {
             </div>
 
             {/* đánh giá */}
-            <div className="grid grid-cols-2 gap-x-20 gap-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-20 gap-y-4">
                 <div className="flex justify-between items-center">
                     <div className="w-full text-base tracking-wide text-gray-700">
                         Mức độ sạch sẽ
@@ -152,7 +152,7 @@ const Review = () => {
             </div>
 
             {/* review */}
-            <div className="grid grid-cols-2 gap-x-20 gap-y-4 w-4/5 mt-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-20 gap-y-4 sm:w-4/5 mt-5">
                 {listReview.map((review, index) => {
                     if (index < 8) {
                         return (
@@ -211,7 +211,7 @@ const Review = () => {
                         );
                     }
                 })}
-                <div className="col-span-2">
+                <div className="sm:col-span-2">
                     <button className="border border-solid border-gray-900 hover:bg-gray-100 transition-all duration-200 rounded-md px-5 py-3 font-semibold text-base text-gray-800 tracking-wider">
                         Hiển thị tất cả 120 đánh giá
                     </button>

@@ -75,9 +75,9 @@ const Info = () => {
     return (
         <div className="container mx-auto px-10">
             <div className="h-28"></div>
-            <div className="flex">
+            <div className="flex flex-wrap">
                 {/* left  */}
-                <div className="w-1/4">
+                <div className="w-full md:w-1/4">
                     <div className="w-full sticky top-32 border rounded-lg p-5">
                         <UploadFile />
 
@@ -118,7 +118,7 @@ const Info = () => {
                 </div>
 
                 {/* right  */}
-                <div className="w-3/5">
+                <div className="w-full md:w-3/4 lg:w-3/5">
                     <div className="px-10">
                         <form onSubmit={handleSubmit(onSubmit, onError)}>
                             <div className=" border-b py-5">

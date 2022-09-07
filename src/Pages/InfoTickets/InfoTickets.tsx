@@ -28,12 +28,6 @@ const InfoTickets = () => {
                 <div className="flex">
                     <div className="flex flex-col mt-4 md:px-10 lg:w-2/3">
                         {listTicket.map((ticket) => {
-                            console.log(
-                                moment(ticket.checkOut).diff(
-                                    moment(ticket.checkIn),
-                                    "days",
-                                ),
-                            );
                             return (
                                 <div
                                     key={ticket._id}
@@ -322,7 +316,7 @@ const InfoTickets = () => {
                             );
                         })}
                     </div>
-                    <div className="w-1/3">
+                    <div className="hidden md:block md:w-1/3">
                         <div className="w-full sticky top-32 border mt-4 rounded-lg shadow-lg p-4">
                             <h3 className="font-semibold text-2xl mb-3">
                                 Khám phá các địa điểm thú vị

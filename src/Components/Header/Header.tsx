@@ -112,7 +112,7 @@ const Header = () => {
                 {/* logo  */}
                 <NavLink
                     to=""
-                    className="flex flex-wrap items-center text-rose-500 z-20"
+                    className="hidden sm:flex flex-wrap items-center text-rose-500 z-20"
                     style={{ flex: "25%" }}
                 >
                     <div className="hidden md:block">
@@ -270,7 +270,7 @@ const Header = () => {
 
                             <div
                                 className={cn(
-                                    "py-2 px-5 hover:bg-gray-300 rounded-full overflow-hidden h-full",
+                                    "hidden sm:block py-2 px-5 hover:bg-gray-300 rounded-full overflow-hidden h-full",
                                     isFocusCheckIn
                                         ? "border bg-white hover:bg-white shadow-lg"
                                         : "",
@@ -294,7 +294,7 @@ const Header = () => {
                             </div>
                             <div
                                 className={cn(
-                                    "py-2 px-5 hover:bg-gray-300 rounded-full overflow-hidden h-full",
+                                    "hidden sm:block py-2 px-5 hover:bg-gray-300 rounded-full overflow-hidden h-full",
                                     isFocusCheckOut
                                         ? "border bg-white hover:bg-white shadow-lg"
                                         : "",
@@ -318,7 +318,7 @@ const Header = () => {
                             </div>
                             <div
                                 className={cn(
-                                    "py-2 pl-7 pr-5 hover:bg-gray-300 rounded-full overflow-hidden h-full",
+                                    "hidden sm:block py-2 pl-7 pr-5 hover:bg-gray-300 rounded-full overflow-hidden h-full",
                                     isFocusGuest
                                         ? "border bg-white hover:bg-white shadow-lg"
                                         : "",
@@ -350,7 +350,7 @@ const Header = () => {
 
                 {/* menu login */}
                 <div
-                    className="block flex-initial col-end-6 z-20"
+                    className="hidden sm:block flex-initial col-end-6 z-20"
                     style={{ flex: "25%" }}
                 >
                     <div className="relative flex items-center justify-end">
