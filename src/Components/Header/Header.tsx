@@ -360,7 +360,7 @@ const Header = () => {
                                 href="#"
                             >
                                 <div className="hidden relative lg:flex cursor-pointer items-center whitespace-nowrap">
-                                    Become a host
+                                    Trở thành chủ nhà
                                 </div>
                             </a>
                             <div className="hidden relative lg:block">
